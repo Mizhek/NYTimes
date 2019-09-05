@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <TextView
+            android:id="@+id/details_tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            tools:text="Article title" />
+
+
+        <TextView
+            android:id="@+id/details_tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            tools:text="Author(s)" />
+
+        <TextView
+            android:id="@+id/details_tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="4dp"
+            android:gravity="end"
+            tools:text="Date" />
+
+
+        <ImageView
+            android:id="@+id/details_ivFullImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_margin="4dp"
+            app:srcCompat="@drawable/placeholder" />
+
+        <TextView
+            android:id="@+id/details_tvFullImageCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            tools:text="Photo caption" />
+
+        <TextView
+            android:id="@+id/details_tvArticleSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="16dp"
+            tools:text="Summary" />
+
+        <Button
+            android:id="@+id/details_btnOpenUrl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:backgroundTint="@color/colorAccent"
+            android:stateListAnimator="@null"
+            android:text="Open in browser"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/details_tvTopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            tools:text="Topic" />
+
+        <TextView
+            android:id="@+id/details_tvContentType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            tools:text="Content type" />
+
+        <TextView
+            android:id="@+id/details_tvTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            tools:text="Tags" />
+
+    </LinearLayout>
+</ScrollView>

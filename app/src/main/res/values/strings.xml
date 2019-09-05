@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">NY Times</string>
+    <string name="no_article_title">No title here.</string>
+    <string name="no_article_url">No link also.</string>
+    <string name="no_article_date">And date is also absent.</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab_text_emailed">Emailed</string>
+    <string name="tab_text_shared">Shared</string>
+    <string name="tab_text_viewed">Viewed</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="theme_header">Theme</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_article_details">Article details</string>
+</resources>
