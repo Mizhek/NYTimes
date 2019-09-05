@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.browser.customtabs.CustomTabsIntent;
+
 import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
@@ -83,8 +85,10 @@ public class ArticleDetailsActivity extends BaseActivity {
             mButtonOpenUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(intent);
+                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+                    CustomTabsIntent customTabsIntent = builder.build();
+                    customTabsIntent.launchUrl(ArticleDetailsActivity.this, Uri.parse(url));
                 }
             });
 
