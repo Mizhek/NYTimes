@@ -2,7 +2,6 @@ package com.example.nytimes.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nytimes.App;
+import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
 import com.example.nytimes.RecyclerClickListener;
 import com.example.nytimes.RecyclerViewAdapter;
@@ -25,6 +24,7 @@ import com.example.nytimes.pojo.Pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,17 +42,17 @@ public class FragmentEmailedTab extends Fragment implements RecyclerClickListene
         super.onCreate(savedInstanceState);
 
         mPojo = new Pojo();
-        mArticles = new ArrayList<Article>();
+        mArticles = new ArrayList<>();
 
         if (mArticles.isEmpty()) {
-            App.getMostPopularApi().getArticles("emailed", 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles("emailed", 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
                     mPojo = response.body();
                     if (mPojo != null) {
                         mArticles.addAll(mPojo.getResults());
                     }
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                    Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
                 }
 
                 @Override
@@ -70,7 +70,7 @@ public class FragmentEmailedTab extends Fragment implements RecyclerClickListene
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_emailed, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_emailed);
+        mRecyclerView = view.findViewById(R.id.recycler_view_emailed);
         return view;
     }
 

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nytimes.App;
+import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
 import com.example.nytimes.RecyclerClickListener;
 import com.example.nytimes.RecyclerViewAdapter;
@@ -24,6 +24,7 @@ import com.example.nytimes.pojo.Pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,10 +32,11 @@ import retrofit2.Response;
 
 public class FragmentSharedTab extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
 
-    RecyclerView mRecyclerView;
-    Pojo mPojoModel;
-    List<Article> mArticles;
-    RecyclerViewAdapter mRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
+    private Pojo mPojoModel;
+    private List<Article> mArticles;
+    private RecyclerViewAdapter mRecyclerViewAdapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,14 +47,15 @@ public class FragmentSharedTab extends Fragment implements RecyclerClickListener
 
 
         if (mArticles.isEmpty()) {
-            App.getMostPopularApi().getArticles("shared", 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles("shared", 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
                     mPojoModel = response.body();
                     if (mPojoModel != null) {
                         mArticles.addAll(mPojoModel.getResults());
                     }
-                    mRecyclerView.getAdapter().notifyDataSetChanged();
+                    Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+
                 }
 
                 @Override
@@ -68,8 +71,9 @@ public class FragmentSharedTab extends Fragment implements RecyclerClickListener
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_shared, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view_shared);
+        View view;
+        view = inflater.inflate(R.layout.fragment_shared, container, false);
+        mRecyclerView = view.findViewById(R.id.recycler_view_shared);
         return view;
     }
 
@@ -85,8 +89,8 @@ public class FragmentSharedTab extends Fragment implements RecyclerClickListener
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
 
 
-
     }
+
     @Override
     public void onItemClick(View view, int position) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
