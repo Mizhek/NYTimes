@@ -46,7 +46,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String date = article.getPublishedDate();
 
             Media media = article.getMedia().get(0);
-            Metadata metadataThumbnail = media.getMediaMetadata().get(2);
+            //.get(1) use middle size article image for faster recyclerView loading
+            Metadata metadataThumbnail = media.getMediaMetadata().get(1);
 
             String thumbnailUrl = metadataThumbnail.getUrl();
 
