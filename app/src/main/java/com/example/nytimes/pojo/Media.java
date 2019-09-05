@@ -19,17 +19,9 @@ public class Media implements Serializable {
             return caption;
         }
 
-        public void setCaption(String caption) {
-            this.caption = caption;
-        }
 
-
-        public List<Metadata> getMediaMetadata() {
+    public List<Metadata> getMediaMetadata() {
             return mediaMetadata;
-        }
-
-        public void setMediaMetadata(List<Metadata> mediaMetadata) {
-            this.mediaMetadata = mediaMetadata;
         }
 
     @Override

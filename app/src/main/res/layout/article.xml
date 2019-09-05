@@ -20,7 +20,8 @@
             android:layout_gravity="center"
             android:layout_margin="4dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/placeholder" />
+            app:srcCompat="@drawable/placeholder"
+            android:contentDescription="Article thumbnail"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

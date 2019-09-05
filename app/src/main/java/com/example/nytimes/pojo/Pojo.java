@@ -16,10 +16,6 @@ public class Pojo implements Serializable {
         return mResults;
     }
 
-    public void setResults(List<Article> results) {
-        this.mResults = results;
-    }
-
 }
 
 

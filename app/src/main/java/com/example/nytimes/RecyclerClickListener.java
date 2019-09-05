@@ -41,8 +41,7 @@ public class RecyclerClickListener extends RecyclerView.SimpleOnItemTouchListene
     @Override
     public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         if (mGestureDetector != null) {
-            boolean result = mGestureDetector.onTouchEvent(e);
-            return result;
+            return mGestureDetector.onTouchEvent(e);
         } else {
             return false;
         }

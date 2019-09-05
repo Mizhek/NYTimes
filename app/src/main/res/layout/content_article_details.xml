@@ -47,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_margin="4dp"
-            app:srcCompat="@drawable/placeholder" />
+            app:srcCompat="@drawable/placeholder"
+            android:contentDescription="Article image"/>
 
         <TextView
             android:id="@+id/details_tvFullImageCaption"

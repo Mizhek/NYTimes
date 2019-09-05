@@ -20,17 +20,7 @@ import com.example.nytimes.pojo.Metadata;
 import com.squareup.picasso.Picasso;
 
 public class ArticleDetailsActivity extends BaseActivity {
-    private static final String TAG = "ArticleDetailsActivity";
-    TextView mTextViewTitle;
-    TextView mTextViewAuthor;
-    TextView mTextViewDate;
-    ImageView mImageViewFullImage;
-    TextView mTextViewImageCaption;
-    TextView mTextViewArticleSummary;
-    Button mButtonOpenUrl;
-    TextView mTextViewTopic;
-    TextView mTextViewContentType;
-    TextView mTextViewTags;
+
 
 
     @Override
@@ -40,17 +30,26 @@ public class ArticleDetailsActivity extends BaseActivity {
 
         activateToolbar(true);
 
+        TextView mTextViewTitle;
         mTextViewTitle = findViewById(R.id.details_tvTitle);
+        TextView mTextViewAuthor;
         mTextViewAuthor = findViewById(R.id.details_tvAuthor);
+        TextView mTextViewDate;
         mTextViewDate = findViewById(R.id.details_tvDate);
+        ImageView mImageViewFullImage;
         mImageViewFullImage = findViewById(R.id.details_ivFullImage);
+        TextView mTextViewImageCaption;
         mTextViewImageCaption = findViewById(R.id.details_tvFullImageCaption);
+        TextView mTextViewArticleSummary;
         mTextViewArticleSummary = findViewById(R.id.details_tvArticleSummary);
+        Button mButtonOpenUrl;
         mButtonOpenUrl = findViewById(R.id.details_btnOpenUrl);
+        TextView mTextViewTopic;
         mTextViewTopic = findViewById(R.id.details_tvTopic);
+        TextView mTextViewContentType;
         mTextViewContentType = findViewById(R.id.details_tvContentType);
+        TextView mTextViewTags;
         mTextViewTags = findViewById(R.id.details_tvTags);
-
 
         Intent intent = getIntent();
         Article article = (Article) intent.getSerializableExtra(ARTICLE_TRANSFER);
@@ -96,6 +95,16 @@ public class ArticleDetailsActivity extends BaseActivity {
                     .error(R.drawable.placeholder)
                     .placeholder(R.drawable.placeholder)
                     .into(mImageViewFullImage);
+
+        } else {
+            mTextViewTitle.setText("No info to display. Check your internet connection and relaunch app.");
+            mTextViewAuthor.setVisibility(View.GONE);
+            mTextViewDate.setVisibility(View.GONE);
+            mButtonOpenUrl.setVisibility(View.GONE);
+            mTextViewImageCaption.setVisibility(View.GONE);
+            mTextViewContentType.setVisibility(View.GONE);
+            mTextViewTags.setVisibility(View.GONE);
+            mTextViewArticleSummary.setVisibility(View.GONE);
 
         }
 
