@@ -4,17 +4,12 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
@@ -23,6 +18,7 @@ import com.example.nytimes.pojo.Metadata;
 import com.squareup.picasso.Picasso;
 
 public class ArticleDetailsActivity extends BaseActivity {
+    private static final String TAG = "ArticleDetailsActivity";
     TextView mTextViewTitle;
     TextView mTextViewAuthor;
     TextView mTextViewDate;
@@ -33,8 +29,6 @@ public class ArticleDetailsActivity extends BaseActivity {
     TextView mTextViewTopic;
     TextView mTextViewContentType;
     TextView mTextViewTags;
-
-
 
 
     @Override
@@ -56,7 +50,6 @@ public class ArticleDetailsActivity extends BaseActivity {
         mTextViewTags = findViewById(R.id.details_tvTags);
 
 
-
         Intent intent = getIntent();
         Article article = (Article) intent.getSerializableExtra(ARTICLE_TRANSFER);
 
@@ -73,9 +66,10 @@ public class ArticleDetailsActivity extends BaseActivity {
             Media media = article.getMedia().get(0);
             String imageCaption = media.getCaption();
 
+            // .get(2) biggest available image
             Metadata metadata = media.getMediaMetadata().get(2);
             String imageUrl = metadata.getUrl();
-            String fullImageUrl = imageUrl.replaceFirst("-mediumThreeByTwo440.jpg", "-superJumbo.jpg?quality=50");
+
 
             mTextViewTitle.setText(title);
             displayTextOrHideView(mTextViewAuthor, author, "Author(s): ");
@@ -86,7 +80,6 @@ public class ArticleDetailsActivity extends BaseActivity {
             displayTextOrHideView(mTextViewContentType, contentType, "Content type: ");
             displayTextOrHideView(mTextViewTags, tags.replaceAll(";", ", "), "Tags: ");
 
-
             mButtonOpenUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -95,10 +88,7 @@ public class ArticleDetailsActivity extends BaseActivity {
                 }
             });
 
-
-
-
-            Picasso.get().load(fullImageUrl)
+            Picasso.get().load(imageUrl)
                     .error(R.drawable.placeholder)
                     .placeholder(R.drawable.placeholder)
                     .into(mImageViewFullImage);
