@@ -2,16 +2,15 @@ package com.example.nytimes.ui.main;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.nytimes.fragments.FragmentEmailedTab;
-import com.example.nytimes.fragments.FragmentSharedTab;
-import com.example.nytimes.fragments.FragmentViewedTab;
+import com.example.nytimes.fragments.EmailedTabFragment;
+import com.example.nytimes.fragments.SharedTabFragment;
+import com.example.nytimes.fragments.ViewedTabFragment;
 import com.example.nytimes.R;
 
 /**
@@ -33,13 +32,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentEmailedTab();
+                return new EmailedTabFragment();
 
             case 1:
-                return new FragmentSharedTab();
+                return new SharedTabFragment();
 
             case 2:
-                return new FragmentViewedTab();
+                return new ViewedTabFragment();
 
             default:
                 return null;

@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentViewedTab extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+public class ViewedTabFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
 
     private RecyclerView mRecyclerView;
     private Pojo mPojoModel;

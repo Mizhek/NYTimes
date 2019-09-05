@@ -30,47 +30,50 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentEmailedTab extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+public class SharedTabFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
 
     private RecyclerView mRecyclerView;
-    private Pojo mPojo;
+    private Pojo mPojoModel;
     private List<Article> mArticles;
     private RecyclerViewAdapter mRecyclerViewAdapter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPojo = new Pojo();
+        mPojoModel = new Pojo();
         mArticles = new ArrayList<>();
 
+
         if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles("emailed", 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles("shared", 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
-                    mPojo = response.body();
-                    if (mPojo != null) {
-                        mArticles.addAll(mPojo.getResults());
+                    mPojoModel = response.body();
+                    if (mPojoModel != null) {
+                        mArticles.addAll(mPojoModel.getResults());
                     }
                     Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+
                 }
 
                 @Override
                 public void onFailure(Call<Pojo> call, Throwable t) {
-                    Toast.makeText(getActivity(), "An error occurred during networking in Emailed Tab", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "An error occurred during networking in Shared Tab", Toast.LENGTH_SHORT).show();
                     t.printStackTrace();
                 }
             });
         }
-
     }
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_emailed, container, false);
-        mRecyclerView = view.findViewById(R.id.recycler_view_emailed);
+        View view;
+        view = inflater.inflate(R.layout.fragment_shared, container, false);
+        mRecyclerView = view.findViewById(R.id.recycler_view_shared);
         return view;
     }
 
@@ -85,11 +88,6 @@ public class FragmentEmailedTab extends Fragment implements RecyclerClickListene
 
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
     }
 
@@ -99,4 +97,5 @@ public class FragmentEmailedTab extends Fragment implements RecyclerClickListene
         intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
         startActivity(intent);
     }
+
 }
