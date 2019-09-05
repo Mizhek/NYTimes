@@ -7,17 +7,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private static MostPopularApi mostPopularApi;
-    private Retrofit mRetrofit;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        mRetrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.nytimes.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        mostPopularApi = mRetrofit.create(MostPopularApi.class);
+        mostPopularApi = retrofit.create(MostPopularApi.class);
 
 
     }
