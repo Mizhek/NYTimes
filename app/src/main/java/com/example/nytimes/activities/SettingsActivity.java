@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.nytimes.R;
+import com.example.nytimes.fragments.SettingsFragment;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -17,18 +18,8 @@ public class SettingsActivity extends BaseActivity {
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
             activateToolbar(true);
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
-        @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
-
-    }
 }
