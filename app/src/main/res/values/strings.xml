@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">NY Times</string>
-    <string name="no_article_title">No title here.</string>
-    <string name="no_article_url">No link also.</string>
-    <string name="no_article_date">And date is also absent.</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="tab_text_emailed">Emailed</string>
     <string name="tab_text_shared">Shared</string>
@@ -24,4 +21,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_article_details">Article details</string>
+    <string name="network_error_message">No info to display. Check your internet connection and relaunch app.</string>
 </resources>
