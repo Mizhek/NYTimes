@@ -34,11 +34,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
         if ((mArticles == null) || (mArticles.size() == 0)) {
-            holder.thumbnail.setImageResource(R.drawable.placeholder);
-            holder.title.setText(R.string.no_article_title);
-            holder.date.setText(R.string.no_article_date);
-
+            holder.thumbnail.setVisibility(View.GONE);
+            holder.date.setVisibility(View.GONE);
+            holder.divider.setVisibility(View.GONE);
+            holder.title.setTextSize(18);
+            holder.title.setText(R.string.network_error_message);
         } else {
+            if (position == 0) {
+                holder.thumbnail.setVisibility(View.VISIBLE);
+                holder.date.setVisibility(View.VISIBLE);
+                holder.divider.setVisibility(View.VISIBLE);
+                holder.title.setTextSize(14);
+            }
             Article article = mArticles.get(position);
 
             String title = article.getTitle();
@@ -76,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView thumbnail;
         TextView title;
         TextView date;
+        View divider;
 
 
         ViewHolder(@NonNull View itemView) {
@@ -83,6 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.thumbnail = itemView.findViewById(R.id.ivImageThumbnail);
             this.title = itemView.findViewById(R.id.tvListArticleTitle);
             this.date = itemView.findViewById(R.id.tvListArticleDate);
+            this.divider = itemView.findViewById(R.id.vDivider);
         }
     }
 }

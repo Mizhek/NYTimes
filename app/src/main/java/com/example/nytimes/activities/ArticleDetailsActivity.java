@@ -97,7 +97,7 @@ public class ArticleDetailsActivity extends BaseActivity {
                     .into(mImageViewFullImage);
 
         } else {
-            mTextViewTitle.setText("No info to display. Check your internet connection and relaunch app.");
+            mTextViewTitle.setText(R.string.network_error_message);
             mTextViewAuthor.setVisibility(View.GONE);
             mTextViewDate.setVisibility(View.GONE);
             mButtonOpenUrl.setVisibility(View.GONE);
