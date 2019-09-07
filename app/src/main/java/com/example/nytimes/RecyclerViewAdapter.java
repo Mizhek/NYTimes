@@ -34,22 +34,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
         if ((mArticles == null) || (mArticles.size() == 0)) {
-            holder.thumbnail.setVisibility(View.GONE);
-            holder.date.setVisibility(View.GONE);
-            holder.divider.setVisibility(View.GONE);
-            holder.title.setTextSize(18);
-            holder.title.setText(R.string.network_error_message);
+            holder.date.setText("No date");
+            holder.title.setText("No titile");
         } else {
-            if (position == 0) {
-                holder.thumbnail.setVisibility(View.VISIBLE);
-                holder.date.setVisibility(View.VISIBLE);
-                holder.divider.setVisibility(View.VISIBLE);
-                holder.title.setTextSize(14);
-            }
+
             Article article = mArticles.get(position);
 
             String title = article.getTitle();
-            String link = article.getUrl();
             String date = article.getPublishedDate();
 
             Media media = article.getMedia().get(0);
