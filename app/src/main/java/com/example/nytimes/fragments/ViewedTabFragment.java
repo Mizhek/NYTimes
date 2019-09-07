@@ -52,7 +52,9 @@ public class ViewedTabFragment extends Fragment implements RecyclerClickListener
                     if (mPojoModel != null) {
                         mArticles.addAll(mPojoModel.getResults());
                     }
-                    Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+                    if (mRecyclerView != null) {
+                        (mRecyclerView.getAdapter()).notifyDataSetChanged();
+                    }
                 }
 
                 @Override

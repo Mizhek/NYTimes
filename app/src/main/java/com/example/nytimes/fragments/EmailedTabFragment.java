@@ -52,7 +52,9 @@ public class EmailedTabFragment extends Fragment implements RecyclerClickListene
                     if (mPojo != null) {
                         mArticles.addAll(mPojo.getResults());
                     }
-                    Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
+                    if (mRecyclerView != null) {
+                        (mRecyclerView.getAdapter()).notifyDataSetChanged();
+                    }
                 }
 
                 @Override
