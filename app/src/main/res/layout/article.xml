@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -18,15 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/placeholder"
-            android:contentDescription="Article thumbnail"/>
+            android:contentDescription="Article thumbnail"
+            app:srcCompat="@drawable/placeholder" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
             android:orientation="vertical">
 
             <TextView
@@ -34,6 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
+                android:textStyle="bold"
+                android:layout_margin="8dp"
+                android:textColor="@color/primary_text"
                 tools:text="Title" />
 
             <TextView
@@ -41,17 +41,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_margin="8dp"
                 android:textAlignment="viewEnd"
                 tools:text="Date" />
+
+            <View
+                android:id="@+id/vDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/divider" />
 
 
         </RelativeLayout>
     </LinearLayout>
 
-    <View
-        android:id="@+id/vDivider"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/divider" />
 </LinearLayout>
 
