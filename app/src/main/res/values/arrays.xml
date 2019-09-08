@@ -1,8 +1,14 @@
 <resources>
-    <string-array name="theme_settings">
+    <string-array name="theme_pref_names">
         <item>Light</item>
         <item>Dark</item>
         <item>System default</item>
+    </string-array>
+
+    <string-array name="theme_pref_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system_default</item>
     </string-array>
 
 

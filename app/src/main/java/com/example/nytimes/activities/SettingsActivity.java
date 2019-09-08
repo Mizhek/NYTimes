@@ -2,9 +2,6 @@ package com.example.nytimes.activities;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.preference.PreferenceFragmentCompat;
-
 import com.example.nytimes.R;
 import com.example.nytimes.fragments.SettingsFragment;
 
@@ -19,7 +16,7 @@ public class SettingsActivity extends BaseActivity {
                 .replace(R.id.settings, new SettingsFragment())
                 .commit();
 
-            activateToolbar(true);
+        activateToolbar(true);
     }
 
 }

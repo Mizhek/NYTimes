@@ -20,11 +20,11 @@
     <PreferenceCategory android:title="Appearance">
 
         <ListPreference
-            android:defaultValue="false"
-            android:entries="@array/theme_settings"
-            android:entryValues="@array/theme_settings"
+            android:defaultValue="system_default"
+            android:entries="@array/theme_pref_names"
+            android:entryValues="@array/theme_pref_values"
             android:icon="@drawable/ic_theme"
-            android:key="list_preference_1"
+            android:key="pref_theme"
             android:title="Theme"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
