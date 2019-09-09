@@ -24,7 +24,6 @@ import com.example.nytimes.pojo.Pojo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,8 +72,8 @@ public class SharedTabFragment extends Fragment implements RecyclerClickListener
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view;
-        view = inflater.inflate(R.layout.fragment_shared, container, false);
-        mRecyclerView = view.findViewById(R.id.recycler_view_shared);
+        view = inflater.inflate(R.layout.fragment_main, container, false);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
         return view;
     }
 

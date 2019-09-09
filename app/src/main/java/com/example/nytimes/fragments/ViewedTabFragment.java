@@ -24,7 +24,6 @@ import com.example.nytimes.pojo.Pojo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,8 +70,8 @@ public class ViewedTabFragment extends Fragment implements RecyclerClickListener
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_viewed, container, false);
-        mRecyclerView = view.findViewById(R.id.recycler_view_viewed);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
         return view;
     }
 
