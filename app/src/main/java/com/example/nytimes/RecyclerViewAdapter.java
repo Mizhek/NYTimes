@@ -35,7 +35,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if ((mArticles == null) || (mArticles.size() == 0)) {
             holder.date.setText("No date");
-            holder.title.setText("No titile");
+            holder.title.setText("No title");
         } else {
 
             Article article = mArticles.get(position);
@@ -82,7 +82,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.thumbnail = itemView.findViewById(R.id.ivImageThumbnail);
             this.title = itemView.findViewById(R.id.tvListArticleTitle);
             this.date = itemView.findViewById(R.id.tvListArticleDate);
-            this.divider = itemView.findViewById(R.id.vDivider);
+
         }
     }
 }
