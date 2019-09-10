@@ -1,4 +1,4 @@
-package com.example.nytimes.ui.main;
+package com.example.nytimes;
 
 import android.content.Context;
 
@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.nytimes.fragments.EmailedTabFragment;
-import com.example.nytimes.fragments.SharedTabFragment;
-import com.example.nytimes.fragments.ViewedTabFragment;
-import com.example.nytimes.R;
+import com.example.nytimes.fragments.MainActivityFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -30,19 +27,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new EmailedTabFragment();
-
-            case 1:
-                return new SharedTabFragment();
-
-            case 2:
-                return new ViewedTabFragment();
-
-            default:
-                return null;
-        }
+        return MainActivityFragment.newInstance(position + 1);
     }
 
     @Nullable

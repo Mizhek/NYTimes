@@ -29,27 +29,56 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ViewedTabFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public class MainActivityFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
 
     private RecyclerView mRecyclerView;
-    private Pojo mPojoModel;
+    private Pojo mPojo;
     private List<Article> mArticles;
     private RecyclerViewAdapter mRecyclerViewAdapter;
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    private String chosenArticlesType;
+
+    public static MainActivityFragment newInstance(int index) {
+
+        MainActivityFragment fragment = new MainActivityFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SECTION_NUMBER, index);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int index = 1;
+        if (getArguments() != null) {
+            index = getArguments().getInt(ARG_SECTION_NUMBER);
+        }
 
-        mPojoModel = new Pojo();
+        switch (index) {
+            case 1:
+                chosenArticlesType = "emailed";
+                break;
+            case 2:
+                chosenArticlesType = "shared";
+                break;
+            case 3:
+                chosenArticlesType = "viewed";
+        }
+
+        mPojo = new Pojo();
         mArticles = new ArrayList<>();
 
         if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles("viewed", 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles(chosenArticlesType, 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
-                    mPojoModel = response.body();
-                    if (mPojoModel != null) {
-                        mArticles.addAll(mPojoModel.getResults());
+                    mPojo = response.body();
+                    if (mPojo != null) {
+                        mArticles.addAll(mPojo.getResults());
                     }
                     if (mRecyclerView != null) {
                         (mRecyclerView.getAdapter()).notifyDataSetChanged();
@@ -58,12 +87,11 @@ public class ViewedTabFragment extends Fragment implements RecyclerClickListener
 
                 @Override
                 public void onFailure(Call<Pojo> call, Throwable t) {
-                    Toast.makeText(getActivity(), "An error occurred during networking in Viewed Tab", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "An error occurred during networking in Emailed Tab", Toast.LENGTH_SHORT).show();
                     t.printStackTrace();
                 }
             });
         }
-
     }
 
     @Override
@@ -72,12 +100,14 @@ public class ViewedTabFragment extends Fragment implements RecyclerClickListener
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -85,8 +115,6 @@ public class ViewedTabFragment extends Fragment implements RecyclerClickListener
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
-
-
     }
 
     @Override
