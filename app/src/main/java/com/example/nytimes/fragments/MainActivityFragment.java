@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,23 +29,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class MainActivityFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
 
     private RecyclerView mRecyclerView;
     private Pojo mPojo;
     private List<Article> mArticles;
     private RecyclerViewAdapter mRecyclerViewAdapter;
-    private static final String ARG_SECTION_NUMBER = "section_number";
-    private String chosenArticlesType;
+    private static final String TAB_NUMBER = "tab_number";
+    private static final String LIST_STATE = "list_state";
+    private String tabArticlesType;
 
     public static MainActivityFragment newInstance(int index) {
 
         MainActivityFragment fragment = new MainActivityFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
+        bundle.putInt(TAB_NUMBER, index);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -54,27 +52,15 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int index = 1;
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-
-        switch (index) {
-            case 1:
-                chosenArticlesType = "emailed";
-                break;
-            case 2:
-                chosenArticlesType = "shared";
-                break;
-            case 3:
-                chosenArticlesType = "viewed";
+            setTabArticlesType(getArguments().getInt(TAB_NUMBER));
         }
 
         mPojo = new Pojo();
         mArticles = new ArrayList<>();
 
         if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles(chosenArticlesType, 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles(tabArticlesType, 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
                     mPojo = response.body();
@@ -95,6 +81,7 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
         }
     }
 
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -108,17 +95,11 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
             mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         }
 
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
         mRecyclerViewAdapter = new RecyclerViewAdapter(mArticles);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
+        return view;
     }
 
     @Override
@@ -127,4 +108,18 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
         intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
         startActivity(intent);
     }
+
+    private void setTabArticlesType(int tabNumber) {
+        switch (tabNumber) {
+            case 1:
+                tabArticlesType = "emailed";
+                break;
+            case 2:
+                tabArticlesType = "shared";
+                break;
+            case 3:
+                tabArticlesType = "viewed";
+        }
+    }
+
 }
