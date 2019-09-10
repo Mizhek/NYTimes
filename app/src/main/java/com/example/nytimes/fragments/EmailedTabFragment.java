@@ -70,7 +70,7 @@ public class EmailedTabFragment extends Fragment implements RecyclerClickListene
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         return view;
     }

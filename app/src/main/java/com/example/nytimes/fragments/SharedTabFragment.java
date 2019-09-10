@@ -72,7 +72,7 @@ public class SharedTabFragment extends Fragment implements RecyclerClickListener
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View view;
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+        view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         return view;
     }
