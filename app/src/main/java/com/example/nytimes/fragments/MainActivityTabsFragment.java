@@ -41,11 +41,11 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
     private ArticlesViewModel mArticlesViewModel;
     private static final String TAB_NUMBER = "tab_number";
 
-    public static MainActivityTabsFragment newInstance(int index) {
+    public static MainActivityTabsFragment newInstance(int tabNumber) {
 
         MainActivityTabsFragment fragment = new MainActivityTabsFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(TAB_NUMBER, index);
+        bundle.putInt(TAB_NUMBER, tabNumber);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -53,10 +53,13 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//  Set proper content type for loading data later
         if (getArguments() != null) {
             setTabContentType(getArguments().getInt(TAB_NUMBER));
         }
 
+//  Load data if needed and save it in viewModel
         mArticlesViewModel = ViewModelProviders.of(this).get(ArticlesViewModel.class);
         if (mArticlesViewModel.getArticles().isEmpty()) {
             mArticlesViewModel.setArticles(downloadData(mTabContentType));
