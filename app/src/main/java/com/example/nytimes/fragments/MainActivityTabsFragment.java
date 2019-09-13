@@ -30,19 +30,20 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivityFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+public class MainActivityTabsFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+    private static final String TAG = "MainActivityTabsFragmen";
 
     private RecyclerView mRecyclerView;
     private Pojo mPojo;
     private List<Article> mArticles;
     private RecyclerViewAdapter mRecyclerViewAdapter;
+    private String mTabContentType;
+
     private static final String TAB_NUMBER = "tab_number";
-    private static final String LIST_STATE = "list_state";
-    private String tabArticlesType;
 
-    public static MainActivityFragment newInstance(int index) {
+    public static MainActivityTabsFragment newInstance(int index) {
 
-        MainActivityFragment fragment = new MainActivityFragment();
+        MainActivityTabsFragment fragment = new MainActivityTabsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(TAB_NUMBER, index);
         fragment.setArguments(bundle);
@@ -53,14 +54,14 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            setTabArticlesType(getArguments().getInt(TAB_NUMBER));
+            setTabContentType(getArguments().getInt(TAB_NUMBER));
         }
 
         mPojo = new Pojo();
         mArticles = new ArrayList<>();
 
         if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles(tabArticlesType, 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles(mTabContentType, 30).enqueue(new Callback<Pojo>() {
                 @Override
                 public void onResponse(Call<Pojo> call, Response<Pojo> response) {
                     mPojo = response.body();
@@ -88,18 +89,18 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
-
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 1));
-        } else {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        }
-
+        mRecyclerView.setLayoutManager(createGridLayoutManager());
         mRecyclerViewAdapter = new RecyclerViewAdapter(mArticles);
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
         return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mRecyclerView.setLayoutManager(createGridLayoutManager());
     }
 
     @Override
@@ -109,17 +110,28 @@ public class MainActivityFragment extends Fragment implements RecyclerClickListe
         startActivity(intent);
     }
 
-    private void setTabArticlesType(int tabNumber) {
+    private void setTabContentType(int tabNumber) {
         switch (tabNumber) {
             case 1:
-                tabArticlesType = "emailed";
+                mTabContentType = "emailed";
                 break;
             case 2:
-                tabArticlesType = "shared";
+                mTabContentType = "shared";
                 break;
             case 3:
-                tabArticlesType = "viewed";
+                mTabContentType = "viewed";
         }
+    }
+
+
+    private RecyclerView.LayoutManager createGridLayoutManager() {
+
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            return new GridLayoutManager(getContext(), 1);
+        } else {
+            return new GridLayoutManager(getContext(), 2);
+        }
+
     }
 
 }
