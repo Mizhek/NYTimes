@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nytimes.ArticlesViewModel;
 import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
 import com.example.nytimes.RecyclerClickListener;
@@ -34,11 +36,9 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
     private static final String TAG = "MainActivityTabsFragmen";
 
     private RecyclerView mRecyclerView;
-    private Pojo mPojo;
-    private List<Article> mArticles;
     private RecyclerViewAdapter mRecyclerViewAdapter;
     private String mTabContentType;
-
+    private ArticlesViewModel mArticlesViewModel;
     private static final String TAB_NUMBER = "tab_number";
 
     public static MainActivityTabsFragment newInstance(int index) {
@@ -57,32 +57,11 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
             setTabContentType(getArguments().getInt(TAB_NUMBER));
         }
 
-        mPojo = new Pojo();
-        mArticles = new ArrayList<>();
-
-        if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles(mTabContentType, 30).enqueue(new Callback<Pojo>() {
-                @Override
-                public void onResponse(Call<Pojo> call, Response<Pojo> response) {
-                    mPojo = response.body();
-                    if (mPojo != null) {
-                        mArticles.addAll(mPojo.getResults());
-                    }
-                    if (mRecyclerView != null) {
-                        (mRecyclerView.getAdapter()).notifyDataSetChanged();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Pojo> call, Throwable t) {
-                    if (getArguments().getInt(TAB_NUMBER) == 1) {
-                        Toast.makeText(getActivity(), "An error occurred during downloading data. " +
-                                "Check internet connection or go to Favorites to see saved articles.", Toast.LENGTH_LONG).show();
-                    }
-                    t.printStackTrace();
-                }
-            });
+        mArticlesViewModel = ViewModelProviders.of(this).get(ArticlesViewModel.class);
+        if (mArticlesViewModel.getArticles().isEmpty()) {
+            mArticlesViewModel.setArticles(downloadData(mTabContentType));
         }
+
     }
 
 
@@ -93,7 +72,7 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
         View view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(createGridLayoutManager());
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mArticles);
+        mRecyclerViewAdapter = new RecyclerViewAdapter(mArticlesViewModel.getArticles());
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
@@ -135,6 +114,33 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
             return new GridLayoutManager(getContext(), 2);
         }
 
+    }
+
+    private List<Article> downloadData(String tabContentType) {
+
+        final Pojo[] mPojo = {new Pojo()};
+        final List<Article> mArticles = new ArrayList<>();
+
+        if (mArticles.isEmpty()) {
+            MyApplication.getMostPopularApi().getArticles(mTabContentType, 30).enqueue(new Callback<Pojo>() {
+                @Override
+                public void onResponse(Call<Pojo> call, Response<Pojo> response) {
+                    mPojo[0] = response.body();
+                    if (mPojo[0] != null) {
+                        mArticles.addAll(mPojo[0].getResults());
+                    }
+                    if (mRecyclerView != null) {
+                        (mRecyclerView.getAdapter()).notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Pojo> call, Throwable t) {
+                    Toast.makeText(getContext(), "An error occurred. Check internet connection or open Favorites to see saved articles.", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        return mArticles;
     }
 
 }
