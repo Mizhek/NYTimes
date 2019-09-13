@@ -75,7 +75,10 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
 
                 @Override
                 public void onFailure(Call<Pojo> call, Throwable t) {
-                    Toast.makeText(getActivity(), "An error occurred during networking in Emailed Tab", Toast.LENGTH_SHORT).show();
+                    if (getArguments().getInt(TAB_NUMBER) == 1) {
+                        Toast.makeText(getActivity(), "An error occurred during downloading data. " +
+                                "Check internet connection or go to Favorites to see saved articles.", Toast.LENGTH_LONG).show();
+                    }
                     t.printStackTrace();
                 }
             });
