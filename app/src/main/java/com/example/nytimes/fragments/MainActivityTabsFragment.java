@@ -56,13 +56,13 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
 
 //  Set proper content type for loading data later
         if (getArguments() != null) {
-            setTabContentType(getArguments().getInt(TAB_NUMBER));
+            mTabContentType = selectTabContentType(getArguments().getInt(TAB_NUMBER));
         }
 
 //  Load data if needed and save it in viewModel
         mArticlesViewModel = ViewModelProviders.of(this).get(ArticlesViewModel.class);
         if (mArticlesViewModel.getArticles().isEmpty()) {
-            mArticlesViewModel.setArticles(downloadData(mTabContentType));
+            mArticlesViewModel.setArticles(downloadData());
         }
 
     }
@@ -95,17 +95,16 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
         startActivity(intent);
     }
 
-    private void setTabContentType(int tabNumber) {
+    private String selectTabContentType(int tabNumber) {
         switch (tabNumber) {
             case 1:
-                mTabContentType = "emailed";
-                break;
+                return "emailed";
             case 2:
-                mTabContentType = "shared";
-                break;
+                return "shared";
             case 3:
-                mTabContentType = "viewed";
+                return "viewed";
         }
+        return null;
     }
 
 
@@ -119,7 +118,7 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
 
     }
 
-    private List<Article> downloadData(String tabContentType) {
+    private List<Article> downloadData() {
 
         final Pojo[] mPojo = {new Pojo()};
         final List<Article> mArticles = new ArrayList<>();
