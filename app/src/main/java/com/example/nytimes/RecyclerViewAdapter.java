@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nytimes.pojo.Article;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<Article> mArticles;
+    private static ClickListener clickListener;
 
     public RecyclerViewAdapter(List<Article> articles) {
         mArticles = articles;
@@ -26,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.article, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_article, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,7 +46,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String date = article.getPublishedDate();
 
             Media media = article.getMedia().get(0);
-            //.get(1) use middle size article image for faster recyclerView loading
+            //.get(1) use middle size list_item_article image for faster recyclerView loading
             Metadata metadataThumbnail = media.getMediaMetadata().get(1);
 
             String thumbnailUrl = metadataThumbnail.getUrl();
@@ -70,10 +72,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return ((mArticles != null) && (mArticles.size() != 0) ? mArticles.get(position) : null);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public void setOnItemClickListener(ClickListener clickListener) {
+        RecyclerViewAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView thumbnail;
         TextView title;
         TextView date;
+        CardView cardView;
+
+
 
 
         ViewHolder(@NonNull View itemView) {
@@ -81,7 +94,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.thumbnail = itemView.findViewById(R.id.ivImageThumbnail);
             this.title = itemView.findViewById(R.id.tvListArticleTitle);
             this.date = itemView.findViewById(R.id.tvListArticleDate);
+            this.cardView = itemView.findViewById(R.id.cardView);
+            cardView.setOnClickListener(this);
 
+
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition(), view);
         }
     }
 }

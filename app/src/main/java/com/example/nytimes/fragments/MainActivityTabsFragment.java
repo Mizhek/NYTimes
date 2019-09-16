@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nytimes.ArticlesViewModel;
 import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
-import com.example.nytimes.RecyclerClickListener;
 import com.example.nytimes.RecyclerViewAdapter;
 import com.example.nytimes.activities.ArticleDetailsActivity;
 import com.example.nytimes.activities.BaseActivity;
@@ -32,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivityTabsFragment extends Fragment implements RecyclerClickListener.onRecyclerClickListener {
+public class MainActivityTabsFragment extends Fragment {
     private static final String TAG = "MainActivityTabsFragmen";
 
     private RecyclerView mRecyclerView;
@@ -54,12 +53,12 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//  Set proper content type for loading data later
+//   Set proper content type for loading data later
         if (getArguments() != null) {
             mTabContentType = selectTabContentType(getArguments().getInt(TAB_NUMBER));
         }
 
-//  Load data if needed and save it in viewModel
+//   Download data if needed and save it in viewModel
         mArticlesViewModel = ViewModelProviders.of(this).get(ArticlesViewModel.class);
         if (mArticlesViewModel.getArticles().isEmpty()) {
             mArticlesViewModel.setArticles(downloadData());
@@ -79,9 +78,20 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
         mRecyclerView.setLayoutManager(createGridLayoutManager());
 
         mRecyclerViewAdapter = new RecyclerViewAdapter(mArticlesViewModel.getArticles());
+        mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                Toast.makeText(getContext(), "Tap on pos.: " + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+                intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
+                startActivity(intent);
+            }
+        });
+
+
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerClickListener(getContext(), mRecyclerView, this));
+
         return view;
     }
 
@@ -91,12 +101,6 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
         mRecyclerView.setLayoutManager(createGridLayoutManager());
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-        intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
-        startActivity(intent);
-    }
 
     private String selectTabContentType(int tabNumber) {
         switch (tabNumber) {
