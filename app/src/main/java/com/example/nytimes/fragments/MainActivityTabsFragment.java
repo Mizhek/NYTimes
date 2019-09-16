@@ -74,7 +74,10 @@ public class MainActivityTabsFragment extends Fragment implements RecyclerClickL
             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_tabs, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+
         mRecyclerView.setLayoutManager(createGridLayoutManager());
+
         mRecyclerViewAdapter = new RecyclerViewAdapter(mArticlesViewModel.getArticles());
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
