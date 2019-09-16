@@ -74,7 +74,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView thumbnail;
         TextView title;
         TextView date;
-        View divider;
 
 
         ViewHolder(@NonNull View itemView) {
