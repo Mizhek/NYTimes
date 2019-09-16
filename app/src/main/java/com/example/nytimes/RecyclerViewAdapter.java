@@ -19,7 +19,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private List<Article> mArticles;
-    private static ClickListener clickListener;
+    private ClickListener clickListener;
 
     public RecyclerViewAdapter(List<Article> articles) {
         mArticles = articles;
@@ -73,7 +73,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        RecyclerViewAdapter.clickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     public interface ClickListener {

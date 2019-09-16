@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nytimes.ArticlesViewModel;
 import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
 import com.example.nytimes.RecyclerViewAdapter;
@@ -22,6 +21,7 @@ import com.example.nytimes.activities.ArticleDetailsActivity;
 import com.example.nytimes.activities.BaseActivity;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Pojo;
+import com.example.nytimes.viewmodels.ArticlesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
