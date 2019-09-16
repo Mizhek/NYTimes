@@ -81,7 +81,6 @@ public class MainActivityTabsFragment extends Fragment {
         mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                Toast.makeText(getContext(), "Tap on pos.: " + position, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
                 intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
                 startActivity(intent);
