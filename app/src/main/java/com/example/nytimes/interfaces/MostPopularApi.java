@@ -1,4 +1,4 @@
-package com.example.nytimes.Interfaces;
+package com.example.nytimes.interfaces;
 
 import com.example.nytimes.pojo.Pojo;
 

@@ -10,10 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
 import com.example.nytimes.pojo.Metadata;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,10 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             String thumbnailUrl = metadataThumbnail.getUrl();
 
-
-            Picasso.get().load(thumbnailUrl)
-                    .error(R.drawable.placeholder)
-                    .placeholder(R.drawable.placeholder)
+            Glide.with(holder.thumbnail.getContext())
+                    .load(thumbnailUrl)
                     .into(holder.thumbnail);
 
             holder.title.setText(title);
@@ -85,8 +83,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView title;
         TextView date;
         CardView cardView;
-
-
 
 
         ViewHolder(@NonNull View itemView) {

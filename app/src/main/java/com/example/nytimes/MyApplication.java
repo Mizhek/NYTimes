@@ -2,7 +2,7 @@ package com.example.nytimes;
 
 import android.app.Application;
 
-import com.example.nytimes.Interfaces.MostPopularApi;
+import com.example.nytimes.interfaces.MostPopularApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

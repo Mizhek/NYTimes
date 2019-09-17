@@ -13,14 +13,13 @@ import android.widget.TextView;
 
 import androidx.browser.customtabs.CustomTabsIntent;
 
+import com.bumptech.glide.Glide;
 import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
 import com.example.nytimes.pojo.Metadata;
-import com.squareup.picasso.Picasso;
 
 public class ArticleDetailsActivity extends BaseActivity {
-
 
 
     @Override
@@ -91,9 +90,8 @@ public class ArticleDetailsActivity extends BaseActivity {
                 }
             });
 
-            Picasso.get().load(imageUrl)
-                    .error(R.drawable.placeholder)
-                    .placeholder(R.drawable.placeholder)
+            Glide.with(this)
+                    .load(imageUrl)
                     .into(mImageViewFullImage);
 
         } else {
