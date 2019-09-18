@@ -41,6 +41,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_margin="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
                     tools:text="Title" />
