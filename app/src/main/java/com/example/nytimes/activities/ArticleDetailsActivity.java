@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
 import com.example.nytimes.R;
@@ -90,8 +91,15 @@ public class ArticleDetailsActivity extends BaseActivity {
                 }
             });
 
+            CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
+            circularProgressDrawable.setCenterRadius(30f);
+            circularProgressDrawable.setStrokeWidth(5f);
+            circularProgressDrawable.setColorSchemeColors(R.color.placeholder);
+            circularProgressDrawable.start();
+
             Glide.with(this)
                     .load(imageUrl)
+                    .placeholder(circularProgressDrawable)
                     .into(mImageViewFullImage);
 
         } else {

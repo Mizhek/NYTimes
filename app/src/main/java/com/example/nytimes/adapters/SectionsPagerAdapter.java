@@ -1,4 +1,4 @@
-package com.example.nytimes;
+package com.example.nytimes.adapters;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.nytimes.R;
 import com.example.nytimes.fragments.MainActivityTabsFragment;
 
 /**

@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.nytimes.R;
-import com.example.nytimes.SectionsPagerAdapter;
+import com.example.nytimes.adapters.SectionsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package com.example.nytimes;
+package com.example.nytimes.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
 import com.example.nytimes.pojo.Metadata;
@@ -35,11 +37,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
-        if ((mArticles == null) || (mArticles.size() == 0)) {
-            holder.date.setText("No date");
-            holder.title.setText("No title");
-        } else {
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(holder.thumbnail.getContext());
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.setColorSchemeColors(R.color.placeholder);
+        circularProgressDrawable.start();
+        holder.thumbnail.setImageDrawable(circularProgressDrawable);
 
+
+        if ((mArticles == null) || (mArticles.size() == 0)) {
+            holder.title.setText("No data to display");
+            holder.date.setVisibility(View.GONE);
+        } else {
+            if (position == 0) {
+                holder.date.setVisibility(View.VISIBLE);
+            }
             Article article = mArticles.get(position);
 
             String title = article.getTitle();
@@ -51,8 +63,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             String thumbnailUrl = metadataThumbnail.getUrl();
 
+
             Glide.with(holder.thumbnail.getContext())
                     .load(thumbnailUrl)
+                    .placeholder(circularProgressDrawable)
                     .into(holder.thumbnail);
 
             holder.title.setText(title);
