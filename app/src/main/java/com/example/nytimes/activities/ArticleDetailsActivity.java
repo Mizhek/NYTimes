@@ -92,9 +92,8 @@ public class ArticleDetailsActivity extends BaseActivity {
             });
 
             CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
-            circularProgressDrawable.setCenterRadius(30f);
-            circularProgressDrawable.setStrokeWidth(5f);
-            circularProgressDrawable.setColorSchemeColors(R.color.placeholder);
+            circularProgressDrawable.setCenterRadius(45f);
+            circularProgressDrawable.setStrokeWidth(7f);
             circularProgressDrawable.start();
 
             Glide.with(this)

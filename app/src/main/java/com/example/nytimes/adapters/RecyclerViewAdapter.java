@@ -38,9 +38,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
         CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(holder.thumbnail.getContext());
-        circularProgressDrawable.setCenterRadius(30f);
-        circularProgressDrawable.setStrokeWidth(5f);
-        circularProgressDrawable.setColorSchemeColors(R.color.placeholder);
+        circularProgressDrawable.setCenterRadius(45f);
+        circularProgressDrawable.setStrokeWidth(7f);
         circularProgressDrawable.start();
         holder.thumbnail.setImageDrawable(circularProgressDrawable);
 
