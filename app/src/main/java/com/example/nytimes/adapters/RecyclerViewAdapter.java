@@ -1,5 +1,7 @@
 package com.example.nytimes.adapters;
 
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         circularProgressDrawable.setCenterRadius(45f);
         circularProgressDrawable.setStrokeWidth(7f);
         circularProgressDrawable.start();
+        circularProgressDrawable.setColorFilter(new PorterDuffColorFilter(holder.thumbnail.getContext().getResources().getColor(R.color.icons), PorterDuff.Mode.ADD));
         holder.thumbnail.setImageDrawable(circularProgressDrawable);
 
 

@@ -1,6 +1,8 @@
 package com.example.nytimes.activities;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -95,6 +97,7 @@ public class ArticleDetailsActivity extends BaseActivity {
             circularProgressDrawable.setCenterRadius(45f);
             circularProgressDrawable.setStrokeWidth(7f);
             circularProgressDrawable.start();
+            circularProgressDrawable.setColorFilter(new PorterDuffColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.ADD));
 
             Glide.with(this)
                     .load(imageUrl)
