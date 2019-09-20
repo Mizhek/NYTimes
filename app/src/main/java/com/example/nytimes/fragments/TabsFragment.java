@@ -3,6 +3,7 @@ package com.example.nytimes.fragments;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivityTabsFragment extends Fragment {
-    private static final String TAG = "MainActivityTabsFragmen";
+public class TabsFragment extends Fragment {
+    private static final String TAG = "TabsFragment";
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mRecyclerViewAdapter;
@@ -40,9 +41,9 @@ public class MainActivityTabsFragment extends Fragment {
     private ArticlesViewModel mArticlesViewModel;
     private static final String TAB_NUMBER = "tab_number";
 
-    public static MainActivityTabsFragment newInstance(int tabNumber) {
+    public static TabsFragment newInstance(int tabNumber) {
 
-        MainActivityTabsFragment fragment = new MainActivityTabsFragment();
+        TabsFragment fragment = new TabsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(TAB_NUMBER, tabNumber);
         fragment.setArguments(bundle);
@@ -60,6 +61,7 @@ public class MainActivityTabsFragment extends Fragment {
 
 //   Download data if needed and save it in viewModel
         mArticlesViewModel = ViewModelProviders.of(this).get(ArticlesViewModel.class);
+        Log.d(TAG, "onCreate: viewModel created in tab: " + mTabContentType);
         if (mArticlesViewModel.getArticles().isEmpty()) {
             mArticlesViewModel.setArticles(downloadData());
         }
