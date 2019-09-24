@@ -1,7 +1,5 @@
 package com.example.nytimes.adapters;
 
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.example.nytimes.CustomCircularProgressDrawable;
 import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
@@ -39,11 +38,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
 
-        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(holder.thumbnail.getContext());
-        circularProgressDrawable.setCenterRadius(45f);
-        circularProgressDrawable.setStrokeWidth(7f);
-        circularProgressDrawable.start();
-        circularProgressDrawable.setColorFilter(new PorterDuffColorFilter(holder.thumbnail.getContext().getResources().getColor(R.color.icons), PorterDuff.Mode.ADD));
+
+        CircularProgressDrawable circularProgressDrawable;
+        circularProgressDrawable = new CustomCircularProgressDrawable(holder.thumbnail.getContext(), 7, 45);
         holder.thumbnail.setImageDrawable(circularProgressDrawable);
 
 

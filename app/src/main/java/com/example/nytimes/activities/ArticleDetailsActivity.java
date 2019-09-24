@@ -1,8 +1,6 @@
 package com.example.nytimes.activities;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +15,7 @@ import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.bumptech.glide.Glide;
+import com.example.nytimes.CustomCircularProgressDrawable;
 import com.example.nytimes.R;
 import com.example.nytimes.pojo.Article;
 import com.example.nytimes.pojo.Media;
@@ -93,11 +92,8 @@ public class ArticleDetailsActivity extends BaseActivity {
                 }
             });
 
-            CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(this);
-            circularProgressDrawable.setCenterRadius(45f);
-            circularProgressDrawable.setStrokeWidth(7f);
-            circularProgressDrawable.start();
-            circularProgressDrawable.setColorFilter(new PorterDuffColorFilter(getResources().getColor(R.color.icons), PorterDuff.Mode.ADD));
+            CircularProgressDrawable circularProgressDrawable;
+            circularProgressDrawable = new CustomCircularProgressDrawable(this, 7, 45);
 
             Glide.with(this)
                     .load(imageUrl)
