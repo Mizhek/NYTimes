@@ -5,13 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipToPadding="false"
+    android:padding="8dp"
+    android:scrollbarStyle="outsideOverlay"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardUseCompatPadding="true"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"

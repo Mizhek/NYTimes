@@ -23,7 +23,7 @@
 
             <ImageView
                 android:id="@+id/ivImageThumbnail"
-                android:layout_width="130dp"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_weight="0"
