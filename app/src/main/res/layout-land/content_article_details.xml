@@ -10,7 +10,7 @@
     android:scrollbarStyle="outsideOverlay"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
@@ -137,5 +137,5 @@
                 android:textColor="@android:color/white" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </ScrollView>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#424242</color>
-    <color name="colorPrimaryDark">#424242</color>
+    <color name="colorPrimary">#202020</color>
+    <color name="colorPrimaryDark">#202020</color>
     <color name="primary_light">#C5CAE9</color>
     <color name="colorAccent">#FF5252</color>
     <color name="primary_text">#EEEEEE</color>
@@ -9,4 +9,5 @@
     <color name="icons">#ffffff</color>
     <color name="iconsWhite">#ffffff</color>
     <color name="divider">#4A535353</color>
+    <color name="recycler_view_background">#000000</color>
 </resources>

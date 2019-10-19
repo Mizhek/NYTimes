@@ -17,6 +17,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/recycler_view_background"
 
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
