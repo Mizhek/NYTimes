@@ -146,7 +146,10 @@ public class TabsFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<Pojo> call, Throwable t) {
-                    Toast.makeText(getContext(), "An error occurred. Check internet connection or open Favorites to see saved articles.", Toast.LENGTH_LONG).show();
+//                    Show error toast only for the first tab
+                    if (mTabContentType.equals("emailed")) {
+                        Toast.makeText(getContext(), "An error occurred. Check internet connection or open Favorites to see saved articles.", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
