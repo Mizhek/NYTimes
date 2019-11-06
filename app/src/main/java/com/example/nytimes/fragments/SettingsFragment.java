@@ -16,7 +16,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
         ListPreference themeListPreference = findPreference("pref_theme");
 
         themeListPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -25,7 +24,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                 changeTheme(newValue.toString());
                 preference.setDefaultValue(newValue);
-// handle bug with setDefaultNightMode on old Android versions
+                // manually restart app after using setDefaultNightMode on old Android versions
                 if (Build.VERSION.SDK_INT <= 23) {
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     startActivity(intent);
