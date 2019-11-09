@@ -36,7 +36,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, final int position) {
 
 
         CircularProgressDrawable circularProgressDrawable;
@@ -70,6 +70,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             holder.title.setText(title);
             holder.date.setText(date);
+
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (clickListener != null) {
+                        clickListener.onItemClick(position);
+                    }
+                }
+            });
         }
 
     }
@@ -88,10 +97,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public interface ClickListener {
-        void onItemClick(int position, View v);
+        void onItemClick(int position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class ViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;
         TextView title;
         TextView date;
@@ -104,14 +113,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             this.title = itemView.findViewById(R.id.tvListArticleTitle);
             this.date = itemView.findViewById(R.id.tvListArticleDate);
             this.cardView = itemView.findViewById(R.id.cardView);
-            cardView.setOnClickListener(this);
 
 
         }
 
-        @Override
-        public void onClick(View view) {
-            clickListener.onItemClick(getAdapterPosition(), view);
-        }
+
     }
 }

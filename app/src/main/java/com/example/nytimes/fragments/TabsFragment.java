@@ -82,12 +82,20 @@ public class TabsFragment extends Fragment {
         mRecyclerViewAdapter = new RecyclerViewAdapter(mArticlesViewModel.getArticles());
         mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
             @Override
-            public void onItemClick(int position, View v) {
+            public void onItemClick(int position) {
                 Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
                 intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
                 startActivity(intent);
             }
         });
+//        mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
+//            @Override
+//            public void onItemClick(int position, View v) {
+//                Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+//                intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
+//                startActivity(intent);
+//            }
+//        });
 
 
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
