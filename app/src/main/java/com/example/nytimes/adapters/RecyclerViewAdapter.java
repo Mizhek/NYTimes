@@ -15,9 +15,9 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
 import com.example.nytimes.CustomCircularProgressDrawable;
 import com.example.nytimes.R;
-import com.example.nytimes.pojo.Article;
-import com.example.nytimes.pojo.Media;
-import com.example.nytimes.pojo.Metadata;
+import com.example.nytimes.data.Article;
+import com.example.nytimes.data.Media;
+import com.example.nytimes.data.Metadata;
 
 import java.util.List;
 

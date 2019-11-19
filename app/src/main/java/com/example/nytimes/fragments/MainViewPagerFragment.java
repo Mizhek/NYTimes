@@ -18,10 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nytimes.MyApplication;
 import com.example.nytimes.R;
 import com.example.nytimes.activities.ArticleDetailsActivity;
-import com.example.nytimes.activities.BaseActivity;
 import com.example.nytimes.adapters.RecyclerViewAdapter;
-import com.example.nytimes.pojo.Article;
-import com.example.nytimes.pojo.Pojo;
+import com.example.nytimes.data.Article;
+import com.example.nytimes.data.NYTimesApi;
 import com.example.nytimes.viewmodels.ArticlesViewModel;
 
 import java.util.ArrayList;
@@ -32,18 +31,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TabsFragment extends Fragment {
-    private static final String TAG = "TabsFragment";
+public class MainViewPagerFragment extends Fragment {
+
+    private static final String TAG = "MainViewPagerFragment";
+    private static final String TAB_NUMBER = "tab_number";
 
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mRecyclerViewAdapter;
     private String mTabContentType;
     private ArticlesViewModel mArticlesViewModel;
-    private static final String TAB_NUMBER = "tab_number";
 
-    public static TabsFragment newInstance(int tabNumber) {
+    public static MainViewPagerFragment newInstance(int tabNumber) {
 
-        TabsFragment fragment = new TabsFragment();
+        MainViewPagerFragment fragment = new MainViewPagerFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(TAB_NUMBER, tabNumber);
         fragment.setArguments(bundle);
@@ -84,7 +84,7 @@ public class TabsFragment extends Fragment {
         mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
             @Override
             public void onCardClick(int position) {
-                navigateToArticleDetailsActivity(position);
+                navigateToArticleDetails(position);
             }
 
             @Override
@@ -103,9 +103,9 @@ public class TabsFragment extends Fragment {
         Toast.makeText(getContext(), "Not ready yet", Toast.LENGTH_SHORT).show();
     }
 
-    private void navigateToArticleDetailsActivity(int position) {
+    private void navigateToArticleDetails(int position) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-        intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
+        intent.putExtra(ArticleDetailsActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
         startActivity(intent);
     }
 
@@ -141,16 +141,16 @@ public class TabsFragment extends Fragment {
 
     private List<Article> downloadData() {
 
-        final Pojo[] mPojo = {new Pojo()};
+        final NYTimesApi[] mNYTimesApi = {new NYTimesApi()};
         final List<Article> mArticles = new ArrayList<>();
 
         if (mArticles.isEmpty()) {
-            MyApplication.getMostPopularApi().getArticles(mTabContentType, 30).enqueue(new Callback<Pojo>() {
+            MyApplication.getMostPopularApi().getArticles(mTabContentType, 30).enqueue(new Callback<NYTimesApi>() {
                 @Override
-                public void onResponse(Call<Pojo> call, Response<Pojo> response) {
-                    mPojo[0] = response.body();
-                    if (mPojo[0] != null) {
-                        mArticles.addAll(mPojo[0].getResults());
+                public void onResponse(Call<NYTimesApi> call, Response<NYTimesApi> response) {
+                    mNYTimesApi[0] = response.body();
+                    if (mNYTimesApi[0] != null) {
+                        mArticles.addAll(mNYTimesApi[0].getResults());
                     }
                     if (mRecyclerView != null) {
                         (mRecyclerView.getAdapter()).notifyDataSetChanged();
@@ -158,7 +158,7 @@ public class TabsFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<Pojo> call, Throwable t) {
+                public void onFailure(Call<NYTimesApi> call, Throwable t) {
 //                    Show error toast only for the first tab
                     if (mTabContentType.equals("emailed")) {
                         Toast.makeText(getContext(), "An error occurred. Check internet connection or open Favorites to see saved articles.", Toast.LENGTH_LONG).show();

@@ -10,8 +10,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.nytimes.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
-    public static final String ARTICLE_TRANSFER = "ARTICLE_TRANSFER";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

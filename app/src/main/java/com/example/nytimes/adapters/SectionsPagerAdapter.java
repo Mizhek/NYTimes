@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.nytimes.R;
-import com.example.nytimes.fragments.TabsFragment;
+import com.example.nytimes.fragments.MainViewPagerFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -28,7 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TabsFragment.newInstance(position + 1);
+        return MainViewPagerFragment.newInstance(position + 1);
     }
 
     @Nullable

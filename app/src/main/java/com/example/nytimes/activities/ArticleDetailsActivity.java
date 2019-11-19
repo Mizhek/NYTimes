@@ -17,11 +17,26 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
 import com.example.nytimes.CustomCircularProgressDrawable;
 import com.example.nytimes.R;
-import com.example.nytimes.pojo.Article;
-import com.example.nytimes.pojo.Media;
-import com.example.nytimes.pojo.Metadata;
+import com.example.nytimes.data.Article;
+import com.example.nytimes.data.Media;
+import com.example.nytimes.data.Metadata;
 
 public class ArticleDetailsActivity extends BaseActivity {
+
+    public static final String ARTICLE_TRANSFER = "article_transfer";
+
+    TextView mTextViewTitle;
+    TextView mTextViewAuthor;
+    TextView mTextViewDate;
+    ImageView mImageViewFullImage;
+    TextView mTextViewImageCaption;
+    TextView mTextViewArticleSummary;
+    Button mButtonOpenUrl;
+    TextView mTextViewTopic;
+    TextView mTextViewContentType;
+    TextView mTextViewTags;
+
+    Article mArticle;
 
 
     @Override
@@ -31,41 +46,31 @@ public class ArticleDetailsActivity extends BaseActivity {
 
         activateToolbar(true);
 
-        TextView mTextViewTitle;
-        mTextViewTitle = findViewById(R.id.details_tvTitle);
-        TextView mTextViewAuthor;
-        mTextViewAuthor = findViewById(R.id.details_tvAuthor);
-        TextView mTextViewDate;
-        mTextViewDate = findViewById(R.id.details_tvDate);
-        ImageView mImageViewFullImage;
-        mImageViewFullImage = findViewById(R.id.details_ivFullImage);
-        TextView mTextViewImageCaption;
-        mTextViewImageCaption = findViewById(R.id.details_tvFullImageCaption);
-        TextView mTextViewArticleSummary;
-        mTextViewArticleSummary = findViewById(R.id.details_tvArticleSummary);
-        Button mButtonOpenUrl;
-        mButtonOpenUrl = findViewById(R.id.details_btnOpenUrl);
-        TextView mTextViewTopic;
-        mTextViewTopic = findViewById(R.id.details_tvTopic);
-        TextView mTextViewContentType;
-        mTextViewContentType = findViewById(R.id.details_tvContentType);
-        TextView mTextViewTags;
-        mTextViewTags = findViewById(R.id.details_tvTags);
+        mTextViewTitle = findViewById(R.id.tvTitle);
+        mTextViewAuthor = findViewById(R.id.tvAuthor);
+        mTextViewDate = findViewById(R.id.tvDate);
+        mImageViewFullImage = findViewById(R.id.ivFullImage);
+        mTextViewImageCaption = findViewById(R.id.tvImageCaption);
+        mTextViewArticleSummary = findViewById(R.id.tvSummary);
+        mButtonOpenUrl = findViewById(R.id.btnOpenArticle);
+        mTextViewTopic = findViewById(R.id.tvTopic);
+        mTextViewContentType = findViewById(R.id.tvContentType);
+        mTextViewTags = findViewById(R.id.tvKeywords);
 
         Intent intent = getIntent();
-        Article article = (Article) intent.getSerializableExtra(ARTICLE_TRANSFER);
+        mArticle = (Article) intent.getSerializableExtra(ARTICLE_TRANSFER);
 
-        if (article != null) {
-            String title = article.getTitle();
-            final String url = article.getUrl();
-            String tags = article.getAdxKeywords();
-            String topic = article.getSection();
-            String author = article.getByline();
-            String contentType = article.getType();
-            String summary = article.getAbstract();
-            String date = article.getPublishedDate();
+        if (mArticle != null) {
+            String title = mArticle.getTitle();
+            final String url = mArticle.getUrl();
+            String tags = mArticle.getAdxKeywords();
+            String topic = mArticle.getSection();
+            String author = mArticle.getByline();
+            String contentType = mArticle.getType();
+            String summary = mArticle.getAbstract();
+            String date = mArticle.getPublishedDate();
 
-            Media media = article.getMedia().get(0);
+            Media media = mArticle.getMedia().get(0);
             String imageCaption = media.getCaption();
 
             // .get(2) biggest available image
@@ -80,15 +85,12 @@ public class ArticleDetailsActivity extends BaseActivity {
             displayTextOrHideView(mTextViewImageCaption, imageCaption, "");
             displayTextOrHideView(mTextViewTopic, topic, "Topic: ");
             displayTextOrHideView(mTextViewContentType, contentType, "Content type: ");
-            displayTextOrHideView(mTextViewTags, tags.replaceAll(";", ", "), "Tags: ");
+            displayTextOrHideView(mTextViewTags, tags.replaceAll(";", ", "), "Keywords: ");
 
             mButtonOpenUrl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-                    builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-                    CustomTabsIntent customTabsIntent = builder.build();
-                    customTabsIntent.launchUrl(ArticleDetailsActivity.this, Uri.parse(url));
+                    openUrlInCustomTab(url);
                 }
             });
 
@@ -101,6 +103,7 @@ public class ArticleDetailsActivity extends BaseActivity {
                     .into(mImageViewFullImage);
 
         } else {
+
             mTextViewTitle.setText(R.string.network_error_message);
             mTextViewAuthor.setVisibility(View.GONE);
             mTextViewDate.setVisibility(View.GONE);
@@ -113,6 +116,13 @@ public class ArticleDetailsActivity extends BaseActivity {
         }
 
 
+    }
+
+    private void openUrlInCustomTab(String url) {
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(ArticleDetailsActivity.this, Uri.parse(url));
     }
 
     private void displayTextOrHideView(TextView textView, String text, String textPrefix) {

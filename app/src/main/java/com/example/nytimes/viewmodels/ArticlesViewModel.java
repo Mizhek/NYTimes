@@ -2,7 +2,7 @@ package com.example.nytimes.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.nytimes.pojo.Article;
+import com.example.nytimes.data.Article;
 
 import java.util.ArrayList;
 import java.util.List;

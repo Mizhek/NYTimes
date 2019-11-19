@@ -1,4 +1,4 @@
-package com.example.nytimes.pojo;
+package com.example.nytimes.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
