@@ -66,6 +66,7 @@ public class TabsFragment extends Fragment {
             mArticlesViewModel.setArticles(downloadData());
         }
 
+
     }
 
 
@@ -78,30 +79,34 @@ public class TabsFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
 
         mRecyclerView.setLayoutManager(createGridLayoutManager());
-
-        mRecyclerViewAdapter = new RecyclerViewAdapter(mArticlesViewModel.getArticles());
+        mRecyclerViewAdapter = new RecyclerViewAdapter();
+        mRecyclerViewAdapter.populateData(mArticlesViewModel.getArticles());
         mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-                intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
-                startActivity(intent);
+            public void onCardClick(int position) {
+                navigateToArticleDetailsActivity(position);
+            }
+
+            @Override
+            public void onStarClick(int position) {
+                starArticle(position);
             }
         });
-//        mRecyclerViewAdapter.setOnItemClickListener(new RecyclerViewAdapter.ClickListener() {
-//            @Override
-//            public void onItemClick(int position, View v) {
-//                Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
-//                intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
-//                startActivity(intent);
-//            }
-//        });
-
 
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
 
         return view;
+    }
+
+    private void starArticle(int position) {
+        Toast.makeText(getContext(), "Not ready yet", Toast.LENGTH_SHORT).show();
+    }
+
+    private void navigateToArticleDetailsActivity(int position) {
+        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+        intent.putExtra(BaseActivity.ARTICLE_TRANSFER, mRecyclerViewAdapter.getArticle(position));
+        startActivity(intent);
     }
 
     @Override
