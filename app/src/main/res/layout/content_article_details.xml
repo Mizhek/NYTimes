@@ -28,7 +28,7 @@
 
 
             <TextView
-                android:id="@+id/details_tvTitle"
+                android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -38,14 +38,14 @@
 
 
             <TextView
-                android:id="@+id/details_tvAuthor"
+                android:id="@+id/tvAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 tools:text="Author(s)" />
 
             <TextView
-                android:id="@+id/details_tvDate"
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -55,7 +55,7 @@
 
 
             <ImageView
-                android:id="@+id/details_ivFullImage"
+                android:id="@+id/ivFullImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="4dp"
@@ -63,7 +63,7 @@
                 app:srcCompat="@drawable/placeholder" />
 
             <TextView
-                android:id="@+id/details_tvFullImageCaption"
+                android:id="@+id/tvImageCaption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
@@ -75,7 +75,7 @@
                 tools:text="Photo caption" />
 
             <TextView
-                android:id="@+id/details_tvArticleSummary"
+                android:id="@+id/tvSummary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -84,7 +84,7 @@
 
 
             <Button
-                android:id="@+id/details_btnOpenUrl"
+                android:id="@+id/btnOpenArticle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -95,21 +95,21 @@
                 android:textColor="@android:color/white" />
 
             <TextView
-                android:id="@+id/details_tvTopic"
+                android:id="@+id/tvTopic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 tools:text="Topic" />
 
             <TextView
-                android:id="@+id/details_tvContentType"
+                android:id="@+id/tvContentType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 tools:text="Content type" />
 
             <TextView
-                android:id="@+id/details_tvTags"
+                android:id="@+id/tvKeywords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
